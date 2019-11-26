@@ -9,11 +9,12 @@ import android.widget.Toast
 //sqlite is implemented into android. databasehandler file creates the table to hold information in
 
 //database name and column names
-val DATABASE_NAME = "StreakDB"
-val TABLE_NAME = "Goals"
-val COL_ID = "id"
-val COL_STREAK = "streak"
-val COL_GOAL = "goal"
+const val DATABASE_NAME = "StreakDB"
+const val TABLE_NAME = "Goals"
+const val COL_ID = "id"
+const val COL_STREAK = "streak"
+const val COL_GOAL = "goal"
+const val COL_DURATION = "duration"
 
 class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -22,7 +23,8 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         val createTable = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_GOAL + " VARCHAR(256)," +
-                COL_STREAK + " INTEGER)"
+                COL_STREAK + " INTEGER," +
+                COL_DURATION + " FLOAT)"
         //code sent to sql to execute
         db?.execSQL(createTable)
     }
@@ -37,6 +39,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         var cv = ContentValues()
         cv.put(COL_GOAL, goal.goal)
         cv.put(COL_STREAK, goal.streak)
+        cv.put(COL_DURATION, goal.duration)
         var result = db.insert(TABLE_NAME, null, cv)
         if (result == -1.toLong()) {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -57,6 +60,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 goal.id = result.getString(0).toInt()
                 goal.goal = result.getString(1)
                 goal.streak = result.getString(2).toInt()
+                goal.duration = result.getString(3).toLong()
                 list.add(goal)
             } while(result.moveToNext())
 

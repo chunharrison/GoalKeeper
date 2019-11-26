@@ -16,20 +16,20 @@ class MainActivity : AppCompatActivity() {
         //when button is clicked, execute code
         nextButton.setOnClickListener {
             insertGoal()
-            nextActiviy()
+            nextActivity()
         }
 
     }
-    //get to the next page, not used currentl
-    fun nextActiviy(){
+    // get to the next page, not used currentl
+    private fun nextActivity(){
         val intent = Intent(this, LandingPageActivity::class.java)
         // start your next activity
         startActivity(intent)
     }
     //take goal from text box and add it to db
-    fun insertGoal(){
+    private fun insertGoal(){
         if(editText.text.toString().length > 0) {
-            var goal = Goal(editText.text.toString())
+            var goal = Goal(editText.text.toString(), editText2.text.toString().toLong())
             var db = DatabaseHandler(context)
             db.insertData(goal)
         } else{

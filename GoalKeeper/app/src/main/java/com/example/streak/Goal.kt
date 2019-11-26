@@ -4,9 +4,11 @@ class Goal {
     var id : Int = 0
     var streak : Int = 0
     var goal : String = ""
+    var duration : Long = 0
 
-    constructor(goal:String){
+    constructor(goal:String, duration:Long){
         this.goal = goal
+        this.duration = duration
     }
 
     constructor(){
