@@ -3,6 +3,7 @@ package com.example.streak
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_landing_page.*
 
 class LandingPageActivity : AppCompatActivity() {
@@ -27,6 +28,9 @@ class LandingPageActivity : AppCompatActivity() {
 
     fun initRecyclerView(){
         recycler_view.apply{
+            layoutManager = LinearLayoutManager(this@LandingPageActivity)
+            val topSpacingItemDecoration = TopSpacingItemDecoration(30)
+            addItemDecoration(topSpacingItemDecoration)
             goalAdapter = CardRecyclerAdapter()
             adapter = goalAdapter
         }
