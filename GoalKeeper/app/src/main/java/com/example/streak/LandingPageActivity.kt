@@ -21,17 +21,21 @@ class LandingPageActivity : AppCompatActivity() {
         addDataSet()
     }
 
+    //Retrieve sqlite data and pass it on to adapter via submitList()
     private fun addDataSet(){
         var data = db.readData()
         goalAdapter.submitList(data)
     }
 
+    //Access recyclerview
     fun initRecyclerView(){
         recycler_view.apply{
+            //Always assign layout manger, this one is linear i.e. a vertical scrolling view
             layoutManager = LinearLayoutManager(this@LandingPageActivity)
             val topSpacingItemDecoration = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingItemDecoration)
             goalAdapter = CardRecyclerAdapter()
+            //assign adapter to this particular recyclerview
             adapter = goalAdapter
         }
     }

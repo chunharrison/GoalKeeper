@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".LandingPageActivity">
 
+    <!-- Recyclerview widget where all goal viewholders will be placed -->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
