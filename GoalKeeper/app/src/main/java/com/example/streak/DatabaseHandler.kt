@@ -9,7 +9,7 @@ import android.widget.Toast
 //sqlite is implemented into android. databasehandler file creates the table to hold information in
 
 //database name and column names
-const val DATABASE_NAME = "StreakDB"
+const val DATABASE_NAME = "GoalKeeperDB"
 const val TABLE_NAME = "Goals"
 const val COL_ID = "id"
 const val COL_STREAK = "streak"

@@ -10,22 +10,26 @@ class LandingPageActivity : AppCompatActivity() {
     val context = this
     var db = DatabaseHandler(context)
 
+    private lateinit var goalAdapter: CardRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_page)
-        //initialize data reader
+
+        initRecyclerView()
+        addDataSet()
+    }
+
+    private fun addDataSet(){
         var data = db.readData()
-        goalView.text = ""
-        //fill in goalview with goals from db
-        for (i in 0 until data.size) {
-            goalView.append("Goal: " + data.get(i).goal.toString() + " Streak: " + data.get(i).streak.toString() + "\n")
+        goalAdapter.submitList(data)
+    }
+
+    fun initRecyclerView(){
+        recycler_view.apply{
+            goalAdapter = CardRecyclerAdapter()
+            adapter = goalAdapter
         }
-
-
-        nextButton.setOnClickListener {
-            nextActiviy()
-        }
-
     }
 
     fun nextActiviy(){
