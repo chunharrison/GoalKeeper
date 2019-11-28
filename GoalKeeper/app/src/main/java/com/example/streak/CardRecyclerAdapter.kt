@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.layout_goal_card.view.*
 class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //variable that will hold data from sqlite database
-    private var items: List<Goal> = ArrayList()
+    private var items: MutableList<Goal> = ArrayList()
 
     //Creating each different viewholder in recyclerview
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -24,7 +24,6 @@ class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     //Check which viewholder type is being created and bind info appropriately from the list of data
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
-
             is GoalViewHolder ->{
                 holder.bind(items.get(position))
             }
@@ -36,9 +35,19 @@ class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
+    fun getRowId(position: Int) : Int {
+        return items.get(position).id
+    }
+
     //Declare goal data for recyclerview adapter to use
-    fun submitList(goalList : List<Goal>){
+    fun submitList(goalList : MutableList<Goal>){
         items = goalList
+    }
+
+    fun deleteViewHolder(viewHolder: RecyclerView.ViewHolder) {
+        items.removeAt(viewHolder.adapterPosition)
+
+        notifyItemRemoved(viewHolder.adapterPosition);
     }
 
     //ViewHolder class defining what each viewholder will look like in the recyclerview

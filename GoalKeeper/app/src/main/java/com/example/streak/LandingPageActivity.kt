@@ -1,10 +1,13 @@
 package com.example.streak
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_landing_page.*
+
 
 class LandingPageActivity : AppCompatActivity() {
 
@@ -19,6 +22,22 @@ class LandingPageActivity : AppCompatActivity() {
 
         initRecyclerView()
         addDataSet()
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
+                db.deleteData(goalAdapter.getRowId(viewHolder.adapterPosition))
+                goalAdapter.deleteViewHolder(viewHolder)
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recycler_view)
+
     }
 
     //Retrieve sqlite data and pass it on to adapter via submitList()
@@ -38,6 +57,12 @@ class LandingPageActivity : AppCompatActivity() {
             //assign adapter to this particular recyclerview
             adapter = goalAdapter
         }
+    }
+
+    fun delete(position: Int) { //removes the row
+        db.deleteData(position)
+
+        db.close()
     }
 
     fun nextActiviy(){
