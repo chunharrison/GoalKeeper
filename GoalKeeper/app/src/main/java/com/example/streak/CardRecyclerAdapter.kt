@@ -35,6 +35,7 @@ class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
+    //get the id of the goal item assigned to current viewholder
     fun getRowId(position: Int) : Int {
         return items.get(position).id
     }
@@ -44,6 +45,7 @@ class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         items = goalList
     }
 
+    //delete information from the list currently in use and notify the recycleradapter
     fun deleteViewHolder(viewHolder: RecyclerView.ViewHolder) {
         items.removeAt(viewHolder.adapterPosition)
 

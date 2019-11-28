@@ -70,6 +70,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         return list
     }
 
+    //delete data from db according with same id as provided
     fun deleteData(id : Int){
         val db = this.writableDatabase
 
