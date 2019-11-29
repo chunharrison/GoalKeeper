@@ -24,7 +24,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_GOAL + " VARCHAR(256)," +
                 COL_STREAK + " INTEGER," +
-                COL_DURATION + " FLOAT)"
+                COL_DURATION + " STRING)"
         //code sent to sql to execute
         db?.execSQL(createTable)
     }
@@ -60,7 +60,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 goal.id = result.getString(0).toInt()
                 goal.goal = result.getString(1)
                 goal.streak = result.getString(2).toInt()
-                goal.duration = result.getString(3).toLong()
+                goal.duration = result.getString(3)
                 list.add(goal)
             } while(result.moveToNext())
 
