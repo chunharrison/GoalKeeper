@@ -34,6 +34,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+    // Preference
+//    def preference_version = "1.1.0"
+//    implementation "androidx.preference:preference-ktx:$preference_version"
+
     // Card View
     def cardview_version = "1.0.0"
     implementation "androidx.cardview:cardview:$cardview_version"

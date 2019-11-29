@@ -13,6 +13,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initDurationButton.setOnClickListener {
+
+        }
+
         //when button is clicked, execute code
         nextButton.setOnClickListener {
             insertGoal()
@@ -29,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     //take goal from text box and add it to db
     private fun insertGoal(){
         if(editText.text.toString().length > 0) {
-            var goal = Goal(editText.text.toString(), editText2.text.toString().toLong())
+            var goal = Goal(editText.text.toString(), initDuration.text.toString().toLong())
             var db = DatabaseHandler(context)
             db.insertData(goal)
         } else{
