@@ -1,10 +1,13 @@
 package com.example.streak
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,8 +17,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Button click to show TimePicker Dialog
         initDurationButton.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val timeSetListener =  TimePickerDialog.OnTimeSetListener{timePicker, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
 
+                // Set time to TextView: initDuration
+                initDuration.text = SimpleDateFormat("HH:mm").format(cal.time)
+            }
+
+            TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         }
 
         //when button is clicked, execute code
@@ -34,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     //take goal from text box and add it to db
     private fun insertGoal(){
         if(editText.text.toString().length > 0) {
-            var goal = Goal(editText.text.toString(), initDuration.text.toString().toLong())
+            var goal = Goal(editText.text.toString(), initDuration.text.toString())
             var db = DatabaseHandler(context)
             db.insertData(goal)
         } else{
