@@ -42,7 +42,14 @@ class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //Declare goal data for recyclerview adapter to use
     fun submitList(goalList : MutableList<Goal>){
-        items = goalList
+        var tempList : MutableList<Goal>
+        tempList = ArrayList()
+        for (goal in goalList) {
+            if (goal.achieved == 0) {
+                tempList.add(goal)
+            }
+        }
+        items = tempList
     }
 
     //delete information from the list currently in use and notify the recycleradapter

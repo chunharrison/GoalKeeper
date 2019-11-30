@@ -25,7 +25,7 @@ class LandingPageActivity : AppCompatActivity() {
 
         //library that enables commands on swipe and move defined
         //LEFT swipe specifically
-        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             //unused
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
@@ -33,8 +33,13 @@ class LandingPageActivity : AppCompatActivity() {
 
             //upon left swipe delete data from database and current list in use aswell as the viewholder
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
-                db.deleteData(goalAdapter.getRowId(viewHolder.adapterPosition))
-                goalAdapter.deleteViewHolder(viewHolder)
+                if (position == ItemTouchHelper.LEFT){
+                    db.deleteData(goalAdapter.getRowId(viewHolder.adapterPosition))
+                    goalAdapter.deleteViewHolder(viewHolder)
+                } else if (position == ItemTouchHelper.RIGHT) {
+                    db.achieved(goalAdapter.getRowId(viewHolder.adapterPosition))
+                    goalAdapter.deleteViewHolder(viewHolder)
+                }
             }
 
         }

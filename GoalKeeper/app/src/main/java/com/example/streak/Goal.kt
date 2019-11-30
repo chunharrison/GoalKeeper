@@ -5,6 +5,7 @@ class Goal {
     var streak : Int = 0
     var goal : String = ""
     var duration : String = ""
+    var achieved : Int = 0
 
     constructor(goal:String, duration:String){
         this.goal = goal
