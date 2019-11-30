@@ -61,12 +61,13 @@ class CardRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val cardGoal = itemView.card_goal
         val cardStreak = itemView.card_streak
         val cardDuration = itemView.card_duration
+        val cardTimerIcon = itemView.card_timer_icon
 
         //Takes each goal object and binding its info to the views in the layout
         fun bind(goal : Goal) {
             cardGoal.setText(goal.goal)
             cardStreak.setText(goal.streak.toString())
-            cardDuration.setText(goal.duration.toString())
+            cardDuration.setText(goal.duration)
         }
     }
 }
