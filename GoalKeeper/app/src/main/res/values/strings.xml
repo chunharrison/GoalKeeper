@@ -4,4 +4,5 @@
     <string name="next_window">Next</string>
     <string name="goal_placeholder">Enter Goal…</string>
     <string name="time_placeholder">00:00</string>
+    <string name="add_goal">Add</string>
 </resources>
