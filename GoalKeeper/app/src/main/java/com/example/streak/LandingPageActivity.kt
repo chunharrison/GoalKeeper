@@ -44,6 +44,10 @@ class LandingPageActivity : AppCompatActivity() {
 
         }
 
+        addGoalButton.setOnClickListener{
+            addGoalActivity()
+        }
+
         //assign said library to variable
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recycler_view)
@@ -75,7 +79,7 @@ class LandingPageActivity : AppCompatActivity() {
         db.close()
     }
 
-    fun nextActiviy(){
+    fun addGoalActivity(){
         val intent = Intent(this, MainActivity::class.java)
         // start your next activity
         startActivity(intent)

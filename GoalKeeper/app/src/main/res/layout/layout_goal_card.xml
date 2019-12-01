@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,40 +23,57 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp"
             android:id="@+id/container1"
             >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/card_goal"
-                android:text="Goal of the Day"
-                android:textColor="#000"
-                android:textSize="19sp"
-                />
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/container2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_streak"
-                android:text="0"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                />
+                android:layout_weight=".85"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/card_duration"
-                android:text="0"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                />
+                <TextView
+                    android:id="@+id/card_goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Goal Name"
+                    android:textColor="#000"
+                    android:textSize="19sp" />
 
+                <TextView
+                    android:id="@+id/card_streak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/card_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/card_timer_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight=".15"
+                android:src="@drawable/ic_timer" />
 
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
