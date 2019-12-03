@@ -1,8 +1,13 @@
 package com.example.streak
 
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +20,10 @@ class LandingPageActivity : AppCompatActivity() {
     var db = DatabaseHandler(context)
 
     private lateinit var goalAdapter: CardRecyclerAdapter
+    private var leftSwipeBackground: ColorDrawable = ColorDrawable(Color.parseColor(("#FF0000")))
+    private var rightSwipeBackground: ColorDrawable = ColorDrawable(Color.parseColor(("#00ff00")))
+    private lateinit var failedIcon: Drawable
+    private lateinit var achievedIcon: Drawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +31,9 @@ class LandingPageActivity : AppCompatActivity() {
 
         initRecyclerView()
         addDataSet()
+
+        failedIcon = ContextCompat.getDrawable(this, R.drawable.ic_failed)!!
+        achievedIcon = ContextCompat.getDrawable(this, R.drawable.ic_achieved)!!
 
         //library that enables commands on swipe and move defined
         //LEFT swipe specifically
@@ -40,6 +52,44 @@ class LandingPageActivity : AppCompatActivity() {
                     db.achieved(goalAdapter.getRowId(viewHolder.adapterPosition))
                     goalAdapter.deleteViewHolder(viewHolder)
                 }
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+
+                val iconMargin = (itemView.height - (itemView.height * 0.8).toInt())
+
+                if (dX < 0) {
+                    leftSwipeBackground.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                    failedIcon.setBounds(itemView.right - itemView.height + iconMargin, itemView.top + iconMargin, itemView.right - iconMargin,
+                        itemView.bottom - iconMargin)
+                    leftSwipeBackground.draw(c)
+                    failedIcon.draw(c)
+                } else {
+                    rightSwipeBackground.setBounds(itemView.left, itemView.top, dX.toInt(), itemView.bottom)
+                    achievedIcon.setBounds(itemView.left + iconMargin, itemView.top + iconMargin, itemView.left + itemView.height - iconMargin,
+                        itemView.bottom - iconMargin)
+                    rightSwipeBackground.draw(c)
+                    achievedIcon.draw(c)
+                }
+
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
             }
 
         }
