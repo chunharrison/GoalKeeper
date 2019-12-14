@@ -101,11 +101,21 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         }
     }
 
-    fun resetAchieved(id : Int) {
+    //reset the achieved status on goals so the recyclerview can see
+    fun resetAchieved() {
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.put(COL_ACHIEVED, 0)
-        db.update(TABLE_NAME, cv, COL_ID+"=?", arrayOf(id.toString()))
+        db.update(TABLE_NAME, cv, COL_ACHIEVED+"=?", arrayOf(1.toString()))
+        db.close()
+    }
+
+    //clear streaks on failed tasks
+    fun resetFailed() {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+        cv.put(COL_STREAK, 0)
+        db.update(TABLE_NAME, cv, COL_ACHIEVED+"=?", arrayOf(0.toString()))
         db.close()
     }
 }
