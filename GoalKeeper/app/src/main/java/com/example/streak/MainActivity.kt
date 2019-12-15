@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             .enqueue(checkDayWorkRequestRepeat)
 
     }
+
     // get to the next page, not used currentl
     private fun nextActivity(){
         val intent = Intent(this, LandingPageActivity::class.java)
