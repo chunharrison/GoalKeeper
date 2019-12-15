@@ -1,5 +1,6 @@
 package com.example.streak
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_landing_page.*
+import java.util.*
 
 
 class LandingPageActivity : AppCompatActivity() {
@@ -104,6 +106,22 @@ class LandingPageActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val sharedPref= context.getSharedPreferences("LAST_OPENED", Context.MODE_PRIVATE)
+        val date = sharedPref.getInt("date_last_opened", 0)
+
+        if (date != getCurrentDay()) {
+            sharedPref.edit().putInt("date_last_opened", getCurrentDay())
+            sharedPref.edit().commit()
+            db.resetFailed()
+            db.resetAchieved()
+            goalAdapter.notifyDataSetChanged()
+        }
+
+    }
+
     //Retrieve sqlite data and pass it on to adapter via submitList()
     private fun addDataSet(){
         var data = db.readData()
@@ -134,4 +152,10 @@ class LandingPageActivity : AppCompatActivity() {
         // start your next activity
         startActivity(intent)
     }
+
+    fun getCurrentDay(): Int {
+        return (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(
+            Calendar.DAY_OF_YEAR))
+    }
+
 }
