@@ -106,9 +106,12 @@ class LandingPageActivity : AppCompatActivity() {
 
     }
 
+    //onResume triggers after onCreate but also triggers when the app is tabbed back in
     override fun onResume() {
         super.onResume()
 
+        //sharedpreferenes point to key-value stores used for smaller set of data, no need to make sqlite table
+        //store the day app was last used
         val sharedPref= context.getSharedPreferences("LAST_OPENED", Context.MODE_PRIVATE)
         val date = sharedPref.getInt("date_last_opened", 0)
 
